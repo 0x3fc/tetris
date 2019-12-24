@@ -5,11 +5,11 @@ public class Board : Node2D
 {
     public const int BOARD_WIDTH = 10;
     public const int BOARD_HEIGHT = 20;
-    public static bool[,] collisionMap;
+    public static Tile[,] collisionMap;
 
     public static void Initialize()
     {
-        collisionMap = new bool[BOARD_HEIGHT, BOARD_WIDTH];
+        collisionMap = new Tile[BOARD_HEIGHT, BOARD_WIDTH];
     }
 
     public static bool WillLocationCollide(int x, int y)
@@ -19,49 +19,18 @@ public class Board : Node2D
             return true;
         }
 
-        return collisionMap[y, x];
-    }
-
-    public static bool IsBrickCollided(Brick brick)
-    {
-        int xOffset = brick.x;
-        int yOffset = brick.y;
-
-        for (int i = 0; i < Brick.DIMENSION; i++)
-        {
-            for (int j = 0; j < Brick.DIMENSION; j++)
-            {
-                if (brick.collisionMap[i, j] && collisionMap[i + yOffset, j + xOffset])
-                {
-                    return false;
-                }
-            }
-        }
-
-        return true;
-    }
-
-    public static bool IsBrickPlacable(Brick brick)
-    {
-        int xOffset = brick.x;
-        int yOffset = brick.y;
-
-        for (int i = 0; i < Brick.DIMENSION; i++)
-        {
-            for (int j = 0; j < Brick.DIMENSION; j++)
-            {
-                if (brick.collisionMap[i, j] && i + yOffset - 1 < Brick.DIMENSION && collisionMap[i + yOffset - 1, j + xOffset])
-                {
-                    return true;
-                }
-            }
-        }
-
-        return false;
+        return collisionMap[y, x] != null;
     }
 
     public static void PlaceBrick(Brick brick)
     {
+        foreach (Tile tile in brick.tiles)
+        {
+            Node parent = tile.GetParent().GetParent();
+            tile.GetParent().RemoveChild(tile);
+            parent.AddChild(tile);
+            collisionMap[tile.y, tile.x] = tile;
+        }
     }
 
     public static void RemoveRows()

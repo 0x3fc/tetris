@@ -10,6 +10,7 @@ public class Brick : Node2D
     public bool[,] collisionMap;
     public Tile[] tiles;
     public PackedScene tileScene = (PackedScene)GD.Load("res://Tile.tscn");
+    public bool placed;
 
     public override void _Ready()
     {
@@ -58,6 +59,9 @@ public class Brick : Node2D
     {
         if (!CanMoveToward(0, 1))
         {
+            Board.PlaceBrick(this);
+            placed = true;
+            QueueFree();
             return;
         }
 

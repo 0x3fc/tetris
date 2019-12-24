@@ -23,13 +23,13 @@ public class GameManager : Node
 
     public void SpawnBrick()
     {
-        GD.Print("Spawn brick");
         currentBrick = (Brick)testBrickScene.Instance();
         board.AddChild(currentBrick);
     }
 
     public override void _Process(float delta)
     {
+        SpawnBrickCheck();
         HandlePlayerInput();
 
         if (dropCooldown > 0)
@@ -55,6 +55,15 @@ public class GameManager : Node
         else if (Input.IsActionJustPressed("DOWN"))
         {
             currentBrick.Drop();
+            dropCooldown = dropSpeed;
+        }
+    }
+
+    private void SpawnBrickCheck()
+    {
+        if (currentBrick.placed)
+        {
+            SpawnBrick();
         }
     }
 }
