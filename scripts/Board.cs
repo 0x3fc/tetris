@@ -12,6 +12,11 @@ public class Board : Node2D
         collisionMap = new bool[BOARD_HEIGHT, BOARD_WIDTH];
     }
 
+    public static bool WillLocationCollide(int x, int y)
+    {
+        return collisionMap[x, y];
+    }
+
     public static bool IsBrickCollided(Brick brick)
     {
         int xOffset = brick.x;
@@ -40,9 +45,7 @@ public class Board : Node2D
         {
             for (int j = 0; j < Brick.DIMENSION; j++)
             {
-                if (brick.collisionMap[i, j]
-                    && i + yOffset - 1 < Brick.DIMENSION
-                    && collisionMap[i + yOffset - 1, j + xOffset])
+                if (brick.collisionMap[i, j] && i + yOffset - 1 < Brick.DIMENSION && collisionMap[i + yOffset - 1, j + xOffset])
                 {
                     return true;
                 }

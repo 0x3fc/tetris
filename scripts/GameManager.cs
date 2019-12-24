@@ -30,6 +30,8 @@ public class GameManager : Node
 
     public override void _Process(float delta)
     {
+        HandlePlayerInput();
+
         if (dropCooldown > 0)
         {
             dropCooldown--;
@@ -38,5 +40,17 @@ public class GameManager : Node
 
         currentBrick.Drop();
         dropCooldown = dropSpeed;
+    }
+
+    private void HandlePlayerInput()
+    {
+        if (Input.IsActionJustPressed("LEFT"))
+        {
+            currentBrick.Move(-1);
+        }
+        else if (Input.IsActionJustPressed("RIGHT"))
+        {
+            currentBrick.Move(1);
+        }
     }
 }
