@@ -14,7 +14,12 @@ public class Board : Node2D
 
     public static bool WillLocationCollide(int x, int y)
     {
-        return collisionMap[x, y];
+        if (x < 0 || x >= BOARD_WIDTH || y < 0 || y >= BOARD_HEIGHT)
+        {
+            return true;
+        }
+
+        return collisionMap[y, x];
     }
 
     public static bool IsBrickCollided(Brick brick)

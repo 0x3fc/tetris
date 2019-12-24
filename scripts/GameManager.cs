@@ -52,5 +52,9 @@ public class GameManager : Node
         {
             currentBrick.Move(1);
         }
+        else if (Input.IsActionJustPressed("DOWN"))
+        {
+            currentBrick.Drop();
+        }
     }
 }
