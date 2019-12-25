@@ -13,6 +13,12 @@ public class Tile : Node2D
         Rerender();
     }
 
+    public void Remove()
+    {
+        Hide();
+        QueueFree();
+    }
+
     private void Rerender()
     {
         SetPosition(new Vector2(x + 0.5f, y) * 16);
