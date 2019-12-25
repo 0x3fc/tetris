@@ -53,7 +53,14 @@
     <Compile Include="scripts\Board.cs" />
     <Compile Include="scripts\Brick.cs" />
     <Compile Include="scripts\GameManager.cs" />
+    <Compile Include="scripts\JBrick.cs" />
+    <Compile Include="scripts\LBrick.cs" />
+    <Compile Include="scripts\OBrick.cs" />
+    <Compile Include="scripts\SBrick.cs" />
+    <Compile Include="scripts\TBrick.cs" />
+    <Compile Include="scripts\IBrick.cs" />
     <Compile Include="scripts\Tile.cs" />
+    <Compile Include="scripts\ZBrick.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

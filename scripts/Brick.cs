@@ -3,8 +3,8 @@ using System;
 
 public class Brick : Node2D
 {
+    [Export]
     public int dimension = 1;
-
     public int x = 0;
     public int y = 0;
     public bool[,] collisionMap;
@@ -12,12 +12,15 @@ public class Brick : Node2D
     public PackedScene tileScene = (PackedScene)GD.Load("res://Tile.tscn");
     public bool placed;
 
+    public virtual void Initialize()
+    {
+        tiles = new Tile[1] { MakeTile(0, 0) };
+    }
+
     public override void _Ready()
     {
         collisionMap = new bool[dimension, dimension];
-
-        tiles = new Tile[1] { MakeTile(0, 0) };
-
+        Initialize();
         foreach (Tile tile in tiles)
         {
             AddChild(tile);
@@ -29,7 +32,7 @@ public class Brick : Node2D
         Tile tile = (Tile)tileScene.Instance();
         tile.x = x;
         tile.y = y;
-        collisionMap[x, y] = true;
+        collisionMap[y, x] = true;
         return tile;
     }
 
