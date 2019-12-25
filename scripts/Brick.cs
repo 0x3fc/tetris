@@ -55,6 +55,22 @@ public class Brick : Node2D
         x += direction;
     }
 
+    public void FastDrop()
+    {
+        while (CanMoveToward(0, 1))
+        {
+            foreach (Tile tile in tiles)
+            {
+                tile.Move(0, 1);
+            }
+            y += 1;
+        }
+
+        Board.PlaceBrick(this);
+        placed = true;
+        QueueFree();
+    }
+
     public void Drop()
     {
         if (!CanMoveToward(0, 1))

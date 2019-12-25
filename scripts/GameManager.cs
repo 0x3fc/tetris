@@ -57,6 +57,11 @@ public class GameManager : Node
             currentBrick.Drop();
             dropCooldown = dropSpeed;
         }
+        else if (Input.IsActionJustPressed("DROP"))
+        {
+            currentBrick.FastDrop();
+            dropCooldown = dropSpeed;
+        }
     }
 
     private void SpawnBrickCheck()
