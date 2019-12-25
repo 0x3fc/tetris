@@ -3,7 +3,7 @@ using System;
 
 public class Brick : Node2D
 {
-    public const int DIMENSION = 4;
+    public int dimension = 1;
 
     public int x = 0;
     public int y = 0;
@@ -14,7 +14,7 @@ public class Brick : Node2D
 
     public override void _Ready()
     {
-        collisionMap = new bool[DIMENSION, DIMENSION];
+        collisionMap = new bool[dimension, dimension];
 
         tiles = new Tile[1] { MakeTile(0, 0) };
 
@@ -75,9 +75,9 @@ public class Brick : Node2D
 
     private bool CanMoveToward(int x, int y)
     {
-        for (int i = 0; i < DIMENSION; i++)
+        for (int i = 0; i < dimension; i++)
         {
-            for (int j = 0; j < DIMENSION; j++)
+            for (int j = 0; j < dimension; j++)
             {
                 if (!collisionMap[i, j])
                 {
