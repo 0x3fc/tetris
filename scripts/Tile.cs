@@ -13,6 +13,13 @@ public class Tile : Node2D
         Rerender();
     }
 
+    public void MoveTo(int x, int y)
+    {
+        this.x = x;
+        this.y = y;
+        Rerender();
+    }
+
     public void Remove()
     {
         Hide();

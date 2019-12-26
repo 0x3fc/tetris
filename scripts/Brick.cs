@@ -38,7 +38,15 @@ public class Brick : Node2D
 
     public void Rotate()
     {
+        bool[,] rotated = (bool[,])collisionMap.Clone();
 
+        if (!ClockwiseRotateMatrix(rotated))
+        {
+            return;
+        }
+
+        collisionMap = rotated;
+        RotateTiles();
     }
 
     public void Move(int direction)
@@ -114,5 +122,61 @@ public class Brick : Node2D
         }
 
         return true;
+    }
+
+    private void RotateTiles()
+    {
+        int k = 0;
+        for (int i = 0; i < dimension && k < tiles.Length; i++)
+        {
+            for (int j = 0; j < dimension && k < tiles.Length; j++)
+            {
+                if (collisionMap[i, j])
+                {
+                    tiles[k++].MoveTo(j + x, i + y);
+                }
+            }
+        }
+    }
+
+    private bool ClockwiseRotateMatrix(bool[,] matrix)
+    {
+        int matrixLength0 = matrix.GetLength(0);
+        int matrixLength1 = matrix.GetLength(1);
+
+        // Flip left to right
+        for (int i = 0; i < matrixLength0; i++)
+        {
+            for (int j = 0; j < matrixLength1 / 2; j++)
+            {
+                Swap(matrix, i, j, i, matrixLength1 - j - 1);
+            }
+        }
+
+        // Flip along topright bottomleft diagonally
+        for (int i = 0; i < matrixLength0; i++)
+        {
+            for (int j = 0; j < matrixLength1 - i; j++)
+            {
+                int swapToI = matrixLength0 - j - 1;
+                int swapToJ = matrixLength1 - i - 1;
+
+                Swap(matrix, i, j, swapToI, swapToJ);
+
+                if ((matrix[swapToI, swapToJ] && Board.WillLocationCollide(swapToJ + x, swapToI + y)) || (matrix[i, j] && Board.WillLocationCollide(j + x, i + y)))
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    private void Swap(bool[,] matrix, int i, int j, int i2, int j2)
+    {
+        bool tmp = matrix[i, j];
+        matrix[i, j] = matrix[i2, j2];
+        matrix[i2, j2] = tmp;
     }
 }

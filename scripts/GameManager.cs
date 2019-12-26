@@ -62,6 +62,10 @@ public class GameManager : Node
             currentBrick.FastDrop();
             dropCooldown = dropSpeed;
         }
+        else if (Input.IsActionJustPressed("ROTATE"))
+        {
+            currentBrick.Rotate();
+        }
     }
 
     private void SpawnBrickCheck()
