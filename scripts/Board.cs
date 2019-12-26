@@ -75,12 +75,12 @@ public class Board : Node2D
             collisionMap[i, j] = null;
         }
 
-        DropBoard();
+        DropBoardFrom(i);
     }
 
-    private static void DropBoard()
+    private static void DropBoardFrom(int i)
     {
-        for (int i = BOARD_HEIGHT - 1; i >= 1; i--)
+        for (i = BOARD_HEIGHT - 1; i >= 1; i--)
         {
             for (int j = 0; j < BOARD_WIDTH; j++)
             {
