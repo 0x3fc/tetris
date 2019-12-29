@@ -28,6 +28,6 @@ public class Tile : Node2D
 
     private void Rerender()
     {
-        SetPosition(new Vector2(x + 0.5f, y) * 16);
+        SetPosition(new Vector2(x + 1.5f, y + 1.5f) * 16);
     }
 }
