@@ -32,6 +32,12 @@ public class Score : Control
         Rerender();
     }
 
+    public static void Clear()
+    {
+        score = 0;
+        Rerender();
+    }
+
     private static void Rerender()
     {
         label.SetText(score.ToString());

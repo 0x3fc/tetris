@@ -107,6 +107,11 @@ public class Brick : Node2D
         return true;
     }
 
+    public void Remove()
+    {
+        QueueFree();
+    }
+
     private bool CanMoveToward(int x, int y)
     {
         for (int i = 0; i < dimension; i++)

@@ -16,4 +16,12 @@ public class Next : Control
         this.brick = brick;
         AddChild(brick);
     }
+
+    public void Clear()
+    {
+        if (brick != null)
+        {
+            RemoveChild(brick);
+        }
+    }
 }

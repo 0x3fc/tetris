@@ -17,25 +17,45 @@ public class GameManager : Node
     public PackedScene TBrickScene = (PackedScene)GD.Load("res://bricks/TBrick.tscn");
     public PackedScene ZBrickScene = (PackedScene)GD.Load("res://bricks/ZBrick.tscn");
 
+    const int INITIAL_DROP_SPEED = 50;
     const int MIN_DROP_SPEED = 30;
-    int dropSpeed = 50;
-    int dropCooldown = 50;
+    int dropSpeed = INITIAL_DROP_SPEED;
+    int dropCooldown = INITIAL_DROP_SPEED;
 
     const int DROP_PHRASE_INTERVAL = 3000;
     int dropPhraseCooldown = DROP_PHRASE_INTERVAL;
 
     private Next next;
+    private bool inGame = false;
 
     public override void _Ready()
+    {
+        nextBrickScenes = new PackedScene[] { IBrickScene, JBrickScene, LBrickScene, OBrickScene, SBrickScene, TBrickScene, ZBrickScene, IBrickScene, JBrickScene, LBrickScene, OBrickScene, SBrickScene, TBrickScene, ZBrickScene };
+    }
+
+    public void Start()
     {
         Viewport root = GetTree().GetRoot();
         board = root.GetNode<Board>("World/Board");
         Board.Initialize();
         next = root.GetNode<Next>("World/Next");
-        nextBrickScenes = new PackedScene[] { IBrickScene, JBrickScene, LBrickScene, OBrickScene, SBrickScene, TBrickScene, ZBrickScene, IBrickScene, JBrickScene, LBrickScene, OBrickScene, SBrickScene, TBrickScene, ZBrickScene };
+        root.GetNode<Label>("World/StartIndicator").Hide();
         ShuffleNextBrickScenes(true);
+
+        currentBrickIndex = 0;
+        dropSpeed = INITIAL_DROP_SPEED;
+        dropCooldown = INITIAL_DROP_SPEED;
+        dropPhraseCooldown = DROP_PHRASE_INTERVAL;
+        Score.Clear();
+
+        if (currentBrick != null)
+        {
+            currentBrick.Remove();
+        }
+        next.Clear();
         SpawnNextBrick();
         SpawnBrick();
+        inGame = true;
     }
 
     public void SpawnBrick()
@@ -58,6 +78,15 @@ public class GameManager : Node
 
     public override void _Process(float delta)
     {
+        if (!inGame)
+        {
+            if (Input.IsActionJustPressed("START"))
+            {
+                Start();
+            }
+            return;
+        }
+
         SpawnBrickCheck();
         HandlePlayerInput();
 
@@ -67,7 +96,6 @@ public class GameManager : Node
         }
         else
         {
-            GD.Print("1");
             dropSpeed = Math.Max(MIN_DROP_SPEED, dropSpeed - 1);
             dropPhraseCooldown = DROP_PHRASE_INTERVAL;
         }
@@ -110,6 +138,10 @@ public class GameManager : Node
         else if (Input.IsActionJustPressed("ROTATE"))
         {
             currentBrick.Rotate();
+        }
+        else if (Input.IsActionJustPressed("RESTART"))
+        {
+            Start();
         }
     }
 

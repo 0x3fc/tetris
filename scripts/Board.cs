@@ -9,7 +9,23 @@ public class Board : Node2D
 
     public static void Initialize()
     {
-        collisionMap = new Tile[BOARD_HEIGHT, BOARD_WIDTH];
+        if (collisionMap == null)
+        {
+            collisionMap = new Tile[BOARD_HEIGHT, BOARD_WIDTH];
+            return;
+        }
+
+        for (int i = 0; i < BOARD_HEIGHT; i++)
+        {
+            for (int j = 0; j < BOARD_WIDTH; j++)
+            {
+                if (collisionMap[i, j] != null)
+                {
+                    collisionMap[i, j].Remove();
+                    collisionMap[i, j] = null;
+                }
+            }
+        }
     }
 
     public static bool WillLocationCollide(int x, int y)

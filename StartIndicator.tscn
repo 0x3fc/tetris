@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="DynamicFontData" id=1]
+font_path = "res://assets/PixelCowboy.ttf"
+
+[sub_resource type="DynamicFont" id=2]
+size = 12
+font_data = SubResource( 1 )
+
+[node name="StartIndicator" type="Label"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -168.0
+margin_bottom = -336.0
+custom_fonts/font = SubResource( 2 )
+text = "Press space to start"
+align = 1
+valign = 1
+autowrap = true
