@@ -57,6 +57,7 @@
     <Compile Include="scripts\LBrick.cs" />
     <Compile Include="scripts\OBrick.cs" />
     <Compile Include="scripts\SBrick.cs" />
+    <Compile Include="scripts\Score.cs" />
     <Compile Include="scripts\TBrick.cs" />
     <Compile Include="scripts\IBrick.cs" />
     <Compile Include="scripts\Tile.cs" />

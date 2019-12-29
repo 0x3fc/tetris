@@ -67,8 +67,10 @@ public class Brick : Node2D
         x += direction;
     }
 
-    public void FastDrop()
+    public int FastDrop()
     {
+        int distance = 0;
+
         while (CanMoveToward(0, 1))
         {
             foreach (Tile tile in tiles)
@@ -76,21 +78,23 @@ public class Brick : Node2D
                 tile.Move(0, 1);
             }
             y += 1;
+            distance++;
         }
 
         Board.PlaceBrick(this);
         placed = true;
         QueueFree();
+        return distance;
     }
 
-    public void Drop()
+    public bool Drop()
     {
         if (!CanMoveToward(0, 1))
         {
             Board.PlaceBrick(this);
             placed = true;
             QueueFree();
-            return;
+            return false;
         }
 
         foreach (Tile tile in tiles)
@@ -99,6 +103,7 @@ public class Brick : Node2D
         }
 
         y += 1;
+        return true;
     }
 
     private bool CanMoveToward(int x, int y)

@@ -71,12 +71,17 @@ public class GameManager : Node
         }
         else if (Input.IsActionJustPressed("DOWN"))
         {
-            currentBrick.Drop();
-            dropCooldown = dropSpeed;
+            bool dropped = currentBrick.Drop();
+            if (dropped)
+            {
+                Score.AddDropScore(true);
+                dropCooldown = dropSpeed;
+            }
         }
         else if (Input.IsActionJustPressed("DROP"))
         {
-            currentBrick.FastDrop();
+            int distance = currentBrick.FastDrop();
+            Score.AddDropScore(false, distance);
             dropCooldown = dropSpeed;
         }
         else if (Input.IsActionJustPressed("ROTATE"))

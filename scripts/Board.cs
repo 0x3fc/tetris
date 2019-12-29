@@ -32,18 +32,21 @@ public class Board : Node2D
             collisionMap[tile.y, tile.x] = tile;
         }
 
-        RemoveFullRows();
+        int numberOfRowsRemoved = RemoveFullRows();
+        Score.AddClearScore(numberOfRowsRemoved);
         RemoveEmptyRows();
     }
 
-    public static void RemoveFullRows()
+    public static int RemoveFullRows()
     {
+        int numberOfRowsRemoved = 0;
         bool scannedAllRows = true;
         for (int i = BOARD_HEIGHT - 1; i >= 0; i--)
         {
             if (IsRowFull(i))
             {
                 RemoveRow(i);
+                numberOfRowsRemoved++;
                 scannedAllRows = false;
                 break;
             }
@@ -51,8 +54,10 @@ public class Board : Node2D
 
         if (!scannedAllRows)
         {
-            RemoveFullRows();
+            numberOfRowsRemoved += RemoveFullRows();
         }
+
+        return numberOfRowsRemoved;
     }
 
     public static void RemoveEmptyRows()

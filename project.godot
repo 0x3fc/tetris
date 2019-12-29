@@ -22,6 +22,7 @@ config/icon="res://icon.png"
 [autoload]
 
 GameManager="*res://scripts/GameManager.cs"
+Score="*res://scripts/Score.cs"
 
 [display]
 
