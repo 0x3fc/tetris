@@ -8,7 +8,6 @@ public class GameManager : Node
     public PackedScene[] nextBrickScenes;
     public int currentBrickIndex = 0;
     public Board board;
-    public PackedScene boardScene = (PackedScene)GD.Load("res://Board.tscn");
 
     public PackedScene IBrickScene = (PackedScene)GD.Load("res://bricks/IBrick.tscn");
     public PackedScene JBrickScene = (PackedScene)GD.Load("res://bricks/JBrick.tscn");
@@ -23,9 +22,7 @@ public class GameManager : Node
 
     public override void _Ready()
     {
-        board = (Board)boardScene.Instance();
-
-        GetTree().GetRoot().GetNode<Node>("World").AddChild(board);
+        board = GetTree().GetRoot().GetNode<Board>("World/Board");
         Board.Initialize();
         nextBrickScenes = new PackedScene[] { IBrickScene, JBrickScene, LBrickScene, OBrickScene, SBrickScene, TBrickScene, ZBrickScene, IBrickScene, JBrickScene, LBrickScene, OBrickScene, SBrickScene, TBrickScene, ZBrickScene };
         ShuffleNextBrickScenes(true);
