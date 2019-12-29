@@ -25,6 +25,7 @@ public class Brick : Node2D
         {
             AddChild(tile);
         }
+        for (int i = new Random().Next(3); i >= 0; i--, Rotate()) ;
     }
 
     public Tile MakeTile(int x, int y)

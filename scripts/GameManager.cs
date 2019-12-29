@@ -24,12 +24,17 @@ public class GameManager : Node
     const int DROP_PHRASE_INTERVAL = 3000;
     int dropPhraseCooldown = DROP_PHRASE_INTERVAL;
 
+    private Next next;
+
     public override void _Ready()
     {
-        board = GetTree().GetRoot().GetNode<Board>("World/Board");
+        Viewport root = GetTree().GetRoot();
+        board = root.GetNode<Board>("World/Board");
         Board.Initialize();
+        next = root.GetNode<Next>("World/Next");
         nextBrickScenes = new PackedScene[] { IBrickScene, JBrickScene, LBrickScene, OBrickScene, SBrickScene, TBrickScene, ZBrickScene, IBrickScene, JBrickScene, LBrickScene, OBrickScene, SBrickScene, TBrickScene, ZBrickScene };
         ShuffleNextBrickScenes(true);
+        SpawnNextBrick();
         SpawnBrick();
     }
 
@@ -41,8 +46,14 @@ public class GameManager : Node
             currentBrickIndex = 0;
         }
 
-        currentBrick = (Brick)nextBrickScenes[currentBrickIndex++].Instance();
+        currentBrick = next.PopBrick();
+        SpawnNextBrick();
         board.AddChild(currentBrick);
+    }
+
+    public void SpawnNextBrick()
+    {
+        next.PushBrick((Brick)nextBrickScenes[currentBrickIndex++].Instance());
     }
 
     public override void _Process(float delta)
