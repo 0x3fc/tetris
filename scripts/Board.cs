@@ -32,10 +32,11 @@ public class Board : Node2D
             collisionMap[tile.y, tile.x] = tile;
         }
 
-        RemoveRows();
+        RemoveFullRows();
+        RemoveEmptyRows();
     }
 
-    public static void RemoveRows()
+    public static void RemoveFullRows()
     {
         bool scannedAllRows = true;
         for (int i = BOARD_HEIGHT - 1; i >= 0; i--)
@@ -50,7 +51,18 @@ public class Board : Node2D
 
         if (!scannedAllRows)
         {
-            RemoveRows();
+            RemoveFullRows();
+        }
+    }
+
+    public static void RemoveEmptyRows()
+    {
+        for (int i = BOARD_HEIGHT - 1; i >= 0; i--)
+        {
+            if (IsRowEmpty(i))
+            {
+                DropBoardFrom(i);
+            }
         }
     }
 
@@ -59,6 +71,19 @@ public class Board : Node2D
         for (int j = 0; j < BOARD_WIDTH; j++)
         {
             if (collisionMap[i, j] == null)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private static bool IsRowEmpty(int i)
+    {
+        for (int j = 0; j < BOARD_WIDTH; j++)
+        {
+            if (collisionMap[i, j] != null)
             {
                 return false;
             }
@@ -80,7 +105,7 @@ public class Board : Node2D
 
     private static void DropBoardFrom(int i)
     {
-        for (i = BOARD_HEIGHT - 1; i >= 1; i--)
+        for (; i >= 1; i--)
         {
             for (int j = 0; j < BOARD_WIDTH; j++)
             {
