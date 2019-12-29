@@ -17,8 +17,12 @@ public class GameManager : Node
     public PackedScene TBrickScene = (PackedScene)GD.Load("res://bricks/TBrick.tscn");
     public PackedScene ZBrickScene = (PackedScene)GD.Load("res://bricks/ZBrick.tscn");
 
+    const int MIN_DROP_SPEED = 30;
     int dropSpeed = 50;
     int dropCooldown = 50;
+
+    const int DROP_PHRASE_INTERVAL = 3000;
+    int dropPhraseCooldown = DROP_PHRASE_INTERVAL;
 
     public override void _Ready()
     {
@@ -45,6 +49,17 @@ public class GameManager : Node
     {
         SpawnBrickCheck();
         HandlePlayerInput();
+
+        if (dropPhraseCooldown > 0)
+        {
+            dropPhraseCooldown--;
+        }
+        else
+        {
+            GD.Print("1");
+            dropSpeed = Math.Max(MIN_DROP_SPEED, dropSpeed - 1);
+            dropPhraseCooldown = DROP_PHRASE_INTERVAL;
+        }
 
         if (dropCooldown > 0)
         {
