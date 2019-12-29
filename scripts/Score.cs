@@ -12,7 +12,7 @@ public class Score : Control
 
     public override void _Ready()
     {
-        label = GetNode<Label>("Label");
+        label = GetNode<Label>("/root/World/Score/Label");
     }
 
     public static void AddClearScore(int clearedRows)
