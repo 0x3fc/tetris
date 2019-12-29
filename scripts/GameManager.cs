@@ -28,7 +28,7 @@ public class GameManager : Node
         GetTree().GetRoot().GetNode<Node>("World").AddChild(board);
         Board.Initialize();
         nextBrickScenes = new PackedScene[] { IBrickScene, JBrickScene, LBrickScene, OBrickScene, SBrickScene, TBrickScene, ZBrickScene, IBrickScene, JBrickScene, LBrickScene, OBrickScene, SBrickScene, TBrickScene, ZBrickScene };
-        ShuffleNextBrickScenes();
+        ShuffleNextBrickScenes(true);
         SpawnBrick();
     }
 
@@ -93,11 +93,12 @@ public class GameManager : Node
         }
     }
 
-    private void ShuffleNextBrickScenes()
+    private void ShuffleNextBrickScenes(bool initialShuffle = false)
     {
         int size = nextBrickScenes.Length;
+        int i = initialShuffle ? 0 : 1;
 
-        for (int i = 1; i < size; i++)
+        for (; i < size; i++)
         {
             Random rand = new Random();
             int randInt = rand.Next(i, size);

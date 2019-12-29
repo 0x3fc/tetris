@@ -5,6 +5,8 @@ public class Tile : Node2D
 {
     public int x = 0;
     public int y = 0;
+    public const float RENDER_OFFSET_X = 1.5f;
+    public const float RENDER_OFFSET_Y = 1.5f;
 
     public void Move(int x, int y)
     {
@@ -26,8 +28,8 @@ public class Tile : Node2D
         QueueFree();
     }
 
-    private void Rerender()
+    public void Rerender()
     {
-        SetPosition(new Vector2(x + 1.5f, y + 1.5f) * 16);
+        SetPosition(new Vector2(x + RENDER_OFFSET_X, y + RENDER_OFFSET_Y) * 16);
     }
 }

@@ -5,7 +5,7 @@ public class Brick : Node2D
 {
     [Export]
     public int dimension = 1;
-    public int x = 0;
+    public int x = 3;
     public int y = 0;
     public bool[,] collisionMap;
     public Tile[] tiles;
@@ -30,9 +30,10 @@ public class Brick : Node2D
     public Tile MakeTile(int x, int y)
     {
         Tile tile = (Tile)tileScene.Instance();
-        tile.x = x;
-        tile.y = y;
+        tile.x = x + this.x;
+        tile.y = y + this.y;
         collisionMap[y, x] = true;
+        tile.Rerender();
         return tile;
     }
 
