@@ -61,6 +61,7 @@ public class GameManager : Node
     public void Lose()
     {
         inGame = false;
+        GetTree().GetRoot().GetNode<HighScore>("World/HighScore").AddScore(Score.score);
     }
 
     public void SpawnBrick()

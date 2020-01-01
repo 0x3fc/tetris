@@ -53,6 +53,7 @@
     <Compile Include="scripts\Board.cs" />
     <Compile Include="scripts\Brick.cs" />
     <Compile Include="scripts\GameManager.cs" />
+    <Compile Include="scripts\HighScore.cs" />
     <Compile Include="scripts\JBrick.cs" />
     <Compile Include="scripts\LBrick.cs" />
     <Compile Include="scripts\Next.cs" />
