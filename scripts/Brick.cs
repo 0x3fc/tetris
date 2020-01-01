@@ -26,6 +26,7 @@ public class Brick : Node2D
             AddChild(tile);
         }
         for (int i = new Random().Next(3); i >= 0; i--, Rotate()) ;
+        MoveToTop();
     }
 
     public Tile MakeTile(int x, int y)
@@ -115,6 +116,21 @@ public class Brick : Node2D
     public void Remove()
     {
         QueueFree();
+    }
+
+    private void MoveToTop()
+    {
+        if (!CanMoveToward(0, -1))
+        {
+            return;
+        }
+
+        foreach (Tile tile in tiles)
+        {
+            tile.Move(0, -1);
+        }
+
+        y -= 1;
     }
 
     private bool CanMoveToward(int x, int y)
