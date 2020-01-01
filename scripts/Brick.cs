@@ -68,6 +68,11 @@ public class Brick : Node2D
         x += direction;
     }
 
+    public bool IsStuck()
+    {
+        return !CanMoveToward(0, 0);
+    }
+
     public int FastDrop()
     {
         int distance = 0;

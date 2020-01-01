@@ -58,6 +58,11 @@ public class GameManager : Node
         inGame = true;
     }
 
+    public void Lose()
+    {
+        inGame = false;
+    }
+
     public void SpawnBrick()
     {
         if (currentBrickIndex >= nextBrickScenes.Length)
@@ -69,6 +74,11 @@ public class GameManager : Node
         currentBrick = next.PopBrick();
         SpawnNextBrick();
         board.AddChild(currentBrick);
+        if (currentBrick.IsStuck())
+        {
+            Lose();
+            return;
+        }
     }
 
     public void SpawnNextBrick()
