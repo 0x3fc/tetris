@@ -2,6 +2,7 @@
 .vscode
 .vs
 .idea
+dist
 
 # Godot-specific ignores
 .import/
